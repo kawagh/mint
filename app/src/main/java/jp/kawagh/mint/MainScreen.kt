@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 
 
@@ -41,10 +40,16 @@ fun MainScreen(taskViewModel: TaskViewModel, onNavigateAdd: () -> Unit) {
                         Text("add")
                     }
                 }
-                LazyColumn(
-                ) {
-                    items(tasks) { task ->
-                        TaskRow(task = task, onClickTask = { taskViewModel.deleteById(task.id) })
+                if (tasks.isEmpty()) {
+                    Text(text = "No task!", fontSize = MaterialTheme.typography.h3.fontSize)
+                } else {
+                    LazyColumn(
+                    ) {
+                        items(tasks) { task ->
+                            TaskRow(
+                                task = task,
+                                onClickTask = { taskViewModel.deleteById(task.id) })
+                        }
                     }
                 }
             }
