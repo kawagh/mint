@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App() {
-    MintTheme {
+    MintTheme(darkTheme = true) {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
