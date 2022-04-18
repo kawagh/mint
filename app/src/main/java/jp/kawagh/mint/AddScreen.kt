@@ -7,6 +7,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -14,7 +15,7 @@ import androidx.compose.ui.focus.focusRequester
 
 @Composable
 fun AddScreen(insertTask: (Task) -> Unit, onNavigateMain: () -> Unit) {
-    var text by remember {
+    var text by rememberSaveable {
         mutableStateOf("")
     }
     val focusRequester = remember {
