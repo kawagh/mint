@@ -31,7 +31,10 @@ fun AddScreen(insertTask: (Task) -> Unit, onNavigateMain: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         TextField(
-            value = text, onValueChange = { text = it },
+            value = text,
+            label = { Text(text = "name") },
+            placeholder = { Text(text = "Input a task name") },
+            onValueChange = { text = it },
             modifier = Modifier.focusRequester(focusRequester)
         )
         Button(onClick = onAddClick) {
