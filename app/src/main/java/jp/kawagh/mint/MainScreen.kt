@@ -1,5 +1,6 @@
 package jp.kawagh.mint
 
+import android.app.Application
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,13 +10,17 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 
 
 @Composable
 fun MainScreen() {
+    val taskViewModel = TaskViewModel(LocalContext.current.applicationContext as Application)
+    val tasks = taskViewModel.tasks.observeAsState(initial = listOf()).value
     Scaffold(
         content = {
             Column(
@@ -27,10 +32,12 @@ fun MainScreen() {
                     text = stringResource(id = R.string.app_name),
                     fontSize = MaterialTheme.typography.h3.fontSize
                 )
-
+                Button(onClick = { taskViewModel.clear() }) {
+                    Text("reset")
+                }
                 LazyColumn(
                 ) {
-                    items(sampleTasks) { task ->
+                    items(tasks) { task ->
                         TaskRow(task = task)
                     }
                 }
@@ -38,7 +45,7 @@ fun MainScreen() {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ }) {
+                onClick = { taskViewModel.insert(Task(0, "newTask")) }) {
                 Icon(Icons.Default.Add, null)
             }
         }
