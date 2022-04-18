@@ -38,15 +38,22 @@ fun MainScreen(taskViewModel: TaskViewModel, onNavigateAdd: () -> Unit) {
                         Text("add")
                     }
                 }
-                if (tasks.isEmpty()) {
-                    Text(text = "No task!", fontSize = MaterialTheme.typography.h3.fontSize)
-                } else {
-                    LazyColumn() {
-                        items(tasks) { task ->
-                            TaskRow(
-                                task = task,
-                                onClickTask = { taskViewModel.deleteById(task.id) }
-                            )
+                Column(
+                    Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    if (tasks.isEmpty()) {
+                        Text(text = "No task!", fontSize = MaterialTheme.typography.h3.fontSize)
+                    } else {
+                        LazyColumn() {
+                            items(tasks) { task ->
+                                TaskRow(
+                                    task = task,
+                                    onClickTask = { taskViewModel.deleteById(task.id) }
+                                )
+                            }
                         }
                     }
                 }
