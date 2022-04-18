@@ -14,6 +14,9 @@ interface TaskDao {
     @Query("DELETE FROM tasks")
     fun deleteAllTasks(): Unit
 
+    @Query("DELETE FROM tasks WHERE id = :id")
+    fun deleteById(id: Int): Unit
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(task: Task)
 }

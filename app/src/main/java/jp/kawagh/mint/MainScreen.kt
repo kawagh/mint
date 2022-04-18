@@ -1,8 +1,10 @@
 package jp.kawagh.mint
 
 import android.app.Application
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -38,7 +40,7 @@ fun MainScreen() {
                 LazyColumn(
                 ) {
                     items(tasks) { task ->
-                        TaskRow(task = task)
+                        TaskRow(task = task, onClickTask = { taskViewModel.deleteById(task.id) })
                     }
                 }
             }
@@ -53,9 +55,12 @@ fun MainScreen() {
 }
 
 @Composable
-fun TaskRow(task: Task) {
-    Text(
-        text = task.name,
-        fontSize = MaterialTheme.typography.h4.fontSize
-    )
+fun TaskRow(task: Task, onClickTask: (Int) -> Unit) {
+    Row(modifier = Modifier.clickable { onClickTask(task.id) }) {
+        Text(text = task.id.toString())
+        Text(
+            text = task.name,
+            fontSize = MaterialTheme.typography.h4.fontSize,
+        )
+    }
 }

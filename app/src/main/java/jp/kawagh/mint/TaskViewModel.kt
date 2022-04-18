@@ -17,6 +17,12 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun deleteById(_id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.taskDao().deleteById(_id)
+        }
+    }
+
     fun clear() {
         viewModelScope.launch(Dispatchers.IO) { db.taskDao().deleteAllTasks() }
     }
