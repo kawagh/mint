@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 
-
 @Composable
 fun MainScreen(taskViewModel: TaskViewModel, onNavigateAdd: () -> Unit) {
     val tasks = taskViewModel.tasks.observeAsState(initial = listOf()).value
@@ -42,12 +41,12 @@ fun MainScreen(taskViewModel: TaskViewModel, onNavigateAdd: () -> Unit) {
                 if (tasks.isEmpty()) {
                     Text(text = "No task!", fontSize = MaterialTheme.typography.h3.fontSize)
                 } else {
-                    LazyColumn(
-                    ) {
+                    LazyColumn() {
                         items(tasks) { task ->
                             TaskRow(
                                 task = task,
-                                onClickTask = { taskViewModel.deleteById(task.id) })
+                                onClickTask = { taskViewModel.deleteById(task.id) }
+                            )
                         }
                     }
                 }

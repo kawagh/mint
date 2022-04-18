@@ -26,5 +26,4 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun clear() {
         viewModelScope.launch(Dispatchers.IO) { db.taskDao().deleteAllTasks() }
     }
-
 }
