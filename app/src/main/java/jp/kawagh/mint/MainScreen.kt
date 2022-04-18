@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 
 
 @Composable
-fun MainScreen() {
+fun MainScreen(onNavigateAdd: () -> Unit) {
     val taskViewModel = TaskViewModel(LocalContext.current.applicationContext as Application)
     val tasks = taskViewModel.tasks.observeAsState(initial = listOf()).value
     Scaffold(
@@ -34,8 +34,13 @@ fun MainScreen() {
                     text = stringResource(id = R.string.app_name),
                     fontSize = MaterialTheme.typography.h3.fontSize
                 )
-                Button(onClick = { taskViewModel.clear() }) {
-                    Text("reset")
+                Row() {
+                    Button(onClick = { taskViewModel.clear() }) {
+                        Text("reset")
+                    }
+                    Button(onClick = { taskViewModel.insert(Task(0, "newTask")) }) {
+                        Text("add")
+                    }
                 }
                 LazyColumn(
                 ) {
@@ -47,7 +52,8 @@ fun MainScreen() {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { taskViewModel.insert(Task(0, "newTask")) }) {
+                onClick = onNavigateAdd
+            ) {
                 Icon(Icons.Default.Add, null)
             }
         }
