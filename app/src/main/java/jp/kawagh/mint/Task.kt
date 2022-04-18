@@ -1,6 +1,13 @@
 package jp.kawagh.mint
 
-data class Task(val id: Int = 0, val name: String)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tasks")
+data class Task(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val name: String
+)
 
 val sampleTasks: List<Task> = listOf(
     Task(name = "task1"),
