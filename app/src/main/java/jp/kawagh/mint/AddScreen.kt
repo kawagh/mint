@@ -1,5 +1,6 @@
 package jp.kawagh.mint
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
@@ -10,16 +11,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun AddScreen(onNavigateMain: () -> Unit) {
+fun AddScreen(insertTask: (Task) -> Unit, onNavigateMain: () -> Unit) {
     var text by remember {
         mutableStateOf("")
+    }
+    val onAddClick = {
+        val task = Task(name = text)
+        insertTask(task)
+        onNavigateMain.invoke()
     }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         TextField(value = text, onValueChange = { text = it })
-        Button(onClick = onNavigateMain) {
+        Button(onClick = onAddClick) {
             Text("add")
         }
     }

@@ -20,8 +20,7 @@ import androidx.compose.ui.res.stringResource
 
 
 @Composable
-fun MainScreen(onNavigateAdd: () -> Unit) {
-    val taskViewModel = TaskViewModel(LocalContext.current.applicationContext as Application)
+fun MainScreen(taskViewModel: TaskViewModel, onNavigateAdd: () -> Unit) {
     val tasks = taskViewModel.tasks.observeAsState(initial = listOf()).value
     Scaffold(
         content = {
