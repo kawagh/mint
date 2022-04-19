@@ -4,11 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TaskViewModel(application: Application) : AndroidViewModel(application) {
-    private val db: AppDatabase = AppDatabase.getInstance(application)
+@HiltViewModel
+class TaskViewModel @Inject constructor(private val db: AppDatabase, application: Application) :
+    AndroidViewModel(application) {
     internal val tasks: LiveData<List<Task>> = db.taskDao().getAllTasks()
 
     fun insert(task: Task) {
